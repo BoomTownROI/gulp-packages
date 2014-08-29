@@ -1,0 +1,24 @@
+#!/usr/bin/php
+<?php
+// process --template templates/listings/hero/single.hbs --dest template/listings/hero/single.php
+require('lightncandy.php');
+
+define('THEME', dirname(dirname(dirname(__FILE__))) . '/');
+
+$options  = array(
+    "template:",     
+    "dest:"
+);
+$opts = getopt('', $options);
+
+$compile_options = array(
+	'flags' => LightnCandy::FLAG_STANDALONE | LightnCandy::FLAG_RUNTIMEPARTIAL | LightnCandy::FLAG_ELSE | LightnCandy::FLAG_INSTANCE,
+	'basedir' => array(THEME . 'templates/listings'),
+	'fileext' => array('.hbs')
+);
+
+$template = file_get_contents(THEME . $opts['template']);
+
+$phpStr = LightnCandy::compile($template, $compile_options);
+
+file_put_contents(THEME . $opts['dest'], $phpStr);
