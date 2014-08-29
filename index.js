@@ -46,7 +46,7 @@ function lightncandy(opts) {
         var template = file.path.substr(file.path.indexOf("templates"));
         var dest = template.replace(path.extname(template), '.php');
 
-        command = 'vendor/gulp-lightncandy/process ';
+        command = 'node_modules/gulp-lightncandy/process ';
         command += '--template ' + template + ' ';
         command += '--dest ' + dest;
 
@@ -60,17 +60,17 @@ function lightncandy(opts) {
 			if ( stdout ) {
 				gutil.log(stdout);
 			}
-			
+
 			// call user callback if ano error occurs
 			if ( error ) {
-			
+
 				gutil.log(error);
         		return callback(error, file);
-			
+
 			} else {
-			
+
         		return callback(null, file);
-			
+
 			}
 
 		});
