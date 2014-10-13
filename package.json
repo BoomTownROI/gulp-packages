@@ -1,6 +1,6 @@
 {
   "name": "gulp-lightncandy",
-  "version": "0.0.4",
+  "version": "1.0.1",
   "description": "Compile handlbar templates in to php files",
   "main": "index.js",
   "scripts": {
