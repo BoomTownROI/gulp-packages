@@ -14,7 +14,6 @@ $opts = getopt('', $options);
 $compile_options = array(
 	'flags' => LightnCandy::FLAG_STANDALONE | LightnCandy::FLAG_RUNTIMEPARTIAL | LightnCandy::FLAG_ELSE | LightnCandy::FLAG_INSTANCE | LightnCandy::FLAG_PARENT | LightnCandy::FLAG_WITH | LightnCandy::FLAG_THIS | LightnCandy::FLAG_SPVARS,
 	'basedir' => array(THEME . 'templates/listings'),
-	'helpers' => array('btIcon' => 'bt_get_icon'),
 	'fileext' => array('.hbs')
 );
 
