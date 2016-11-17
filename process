@@ -19,6 +19,28 @@ $compile_options = array(
 			return intval($value) + 1;
 		}
 	),
+  'hbhelpers' => array(
+      'or' => function() {
+          $args = func_get_args();
+          $argLength = count($args) - 1;
+          $context = $args[$argLength];
+          $success = false;
+
+          $i = 0;
+          while ($i < $argLength) {
+              if ($args[$i]) {
+                  $success = true;
+                  break;
+              }
+              $i++;
+          }
+          if ($success) {
+              return $context['fn']();
+          } else {
+              return $context['inverse'] ? $context['inverse']() : '';
+          }
+      },
+  ),
 	'fileext' => array('.hbs')
 );
 
