@@ -40,6 +40,20 @@ $compile_options = array(
               return $context['inverse'] ? $context['inverse']() : '';
           }
       },
+      'and' => function($a, $b, $options) {
+          if ($a && $b) {
+              return $options['fn']();
+          } else {
+              return $options['inverse']();
+          }
+      }
+      'lengthGT' => function($array, $length, $options) {
+          if (count($array) > $length) {
+              return $options['fn']();
+          } else {
+              return $options['inverse']();
+          }
+      }
   ),
 	'fileext' => array('.hbs')
 );
