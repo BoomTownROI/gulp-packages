@@ -46,7 +46,7 @@ $compile_options = array(
           } else {
               return $options['inverse']();
           }
-      }
+      },
       'lengthGT' => function($array, $length, $options) {
           if (count($array) > $length) {
               return $options['fn']();
