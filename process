@@ -55,10 +55,12 @@ $compile_options = array(
           }
       },
       'ifEq' => function($a, $b, $options) {
-          if ($a == $b) {
+          if ($a === $b) {
               return $options['fn']();
+          } elseif ($options['inverse']) {
+            return $options['inverse']();
           } else {
-              return $options['inverse']();
+            return;
           }
       },
   ),
