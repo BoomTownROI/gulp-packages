@@ -6,20 +6,67 @@ require('lightncandy.php');
 define('THEME', dirname(dirname(dirname(__FILE__))) . '/');
 
 $options  = array(
-    "template:",     
+    "template:",
     "dest:"
 );
 $opts = getopt('', $options);
 
 $compile_options = array(
-	'flags' => LightnCandy::FLAG_STANDALONE | LightnCandy::FLAG_RUNTIMEPARTIAL | LightnCandy::FLAG_ELSE | LightnCandy::FLAG_INSTANCE | LightnCandy::FLAG_PARENT | LightnCandy::FLAG_WITH | LightnCandy::FLAG_THIS | LightnCandy::FLAG_SPVARS,
-	'basedir' => array(THEME . 'templates/listings'),
-	'helpers' => array(
-		'addOne' => function($value) {
-			return intval($value) + 1;
-		}
-	),
-	'fileext' => array('.hbs')
+    'flags' => LightnCandy::FLAG_STANDALONE | LightnCandy::FLAG_RUNTIMEPARTIAL | LightnCandy::FLAG_ELSE | LightnCandy::FLAG_INSTANCE | LightnCandy::FLAG_PARENT | LightnCandy::FLAG_WITH | LightnCandy::FLAG_THIS | LightnCandy::FLAG_SPVARS,
+    'basedir' => array(THEME . 'templates/listings'),
+    'helpers' => array(
+        'addOne' => function ($value) {
+            return intval($value) + 1;
+        }
+    ),
+  'hbhelpers' => array(
+      'or' => function () {
+          $args = func_get_args();
+          $argLength = count($args) - 1;
+          $context = $args[$argLength];
+          $success = false;
+
+          $i = 0;
+        while ($i < $argLength) {
+            if ($args[$i]) {
+                $success = true;
+                break;
+            }
+            $i++;
+        }
+        if ($success) {
+            return $context['fn']();
+        } else {
+            return $context['inverse'] ? $context['inverse']() : '';
+        }
+      },
+      'and' => function ($a, $b, $options) {
+        if ($a && $b) {
+            return $options['fn']();
+        } elseif ($options['inverse']) {
+            return $options['inverse']();
+        } else {
+            return;
+        }
+      },
+      'lengthGT' => function ($array, $length, $options) {
+        if (count($array) > $length) {
+            return $options['fn']();
+        } else {
+            return $options['inverse']();
+        }
+      },
+      'ifEq' => function ($a, $b, $options) {
+        if ($a === $b) {
+            return $options['fn']();
+        } elseif ($options['inverse']) {
+            return $options['inverse']();
+        } else {
+            return;
+        }
+      },
+  ),
+    'fileext' => array('.hbs')
 );
 
 $template = file_get_contents(THEME . $opts['template']);
