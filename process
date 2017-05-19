@@ -43,9 +43,11 @@ $compile_options = array(
       'and' => function($a, $b, $options) {
           if ($a && $b) {
               return $options['fn']();
-          } else {
+          } elseif ($options['inverse']) {
               return $options['inverse']();
-          }
+          } else {
+              return;
+	  }
       },
       'lengthGT' => function($array, $length, $options) {
           if (count($array) > $length) {
