@@ -55,7 +55,16 @@ $compile_options = array(
           } else {
               return $options['inverse']();
           }
-      }
+      },
+      'ifEq' => function($a, $b, $options) {
+          if ($a === $b) {
+              return $options['fn']();
+          } elseif ($options['inverse']) {
+            return $options['inverse']();
+          } else {
+            return;
+          }
+      },
   ),
 	'fileext' => array('.hbs')
 );
