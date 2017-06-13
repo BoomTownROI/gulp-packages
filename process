@@ -65,6 +65,9 @@ $compile_options = array(
             return;
         }
       },
+      'isDefined' => function ($x, $options) {
+        return $options[isset($x) ? 'fn' : 'inverse']();
+      }
   ),
     'fileext' => array('.hbs')
 );
