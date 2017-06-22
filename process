@@ -36,37 +36,43 @@ $compile_options = array(
         }
         if ($success) {
             return $context['fn']();
-        } else {
-            return $context['inverse'] ? $context['inverse']() : '';
+        } else if (isset($context['inverse'])) {
+            return $context['inverse']();
         }
+        return '';
       },
       'and' => function ($a, $b, $options) {
         if ($a && $b) {
             return $options['fn']();
-        } elseif ($options['inverse']) {
+        } else if (isset($options['inverse'])) {
             return $options['inverse']();
-        } else {
-            return;
         }
+        return '';
       },
       'lengthGT' => function ($array, $length, $options) {
         if (count($array) > $length) {
             return $options['fn']();
-        } else {
+        } else if (isset($options['inverse'])) {
             return $options['inverse']();
         }
+        return '';
       },
       'ifEq' => function ($a, $b, $options) {
         if ($a === $b) {
             return $options['fn']();
-        } elseif ($options['inverse']) {
+        } else if (isset($options['inverse'])) {
             return $options['inverse']();
         } else {
             return;
         }
       },
       'isDefined' => function ($x, $options) {
-        return $options[isset($x) ? 'fn' : 'inverse']();
+        if (isset($x)) {
+            return $options['fn']();
+        } else if (isset($options['inverse'])) {
+            return $options['inverse']();
+        }
+        return '';
       }
   ),
     'fileext' => array('.hbs')
