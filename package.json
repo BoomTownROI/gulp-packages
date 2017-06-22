@@ -1,12 +1,12 @@
 {
   "name": "gulp-lightncandy",
-  "version": "1.0.1",
-  "description": "Compile handlbar templates in to php files",
+  "version": "2.0.1",
+  "description": "Compile handlebar templates into php files",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Boomtown",
+  "author": "BoomTown",
   "devDependencies": {
     "chalk": "^0.5.1",
     "gulp-util": "^3.0.0",
